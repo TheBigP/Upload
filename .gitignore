@@ -23,3 +23,9 @@
 /nbdist/
 /.nb-gradle/
 /build/
+/.gradle
+/gradle
+/.mvn
+README.pdf
+README.tex
+upload-dir
