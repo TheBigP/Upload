@@ -12,27 +12,29 @@
 #+BEGIN_SRC sh
 cd springboot-file-upload
 gradle build
-// サービスを起動する
 java -jar build/libs/gs-uploading-files-0.1.0.jar
 #+END_SRC
 ** mavenの場合
 #+BEGIN_SRC sh
 cd springboot-file-upload
-mvn clean package war:war
- // サービスを起動する
-java -jar target/gs-uploading-files-0.1.0.jar
+mvn clean war:war
+cp target/gs-uploading-files-0.1.0.war TOMCAT_HOME/webapps/
 #+END_SRC
  warも生成できるので、tomcatのwebappsにコピーすれば、起動できます。
+** 注意点
+   - 「src/main/java/hello/storage/StorageProperties.java」に、ファイルの格納する場所は「/tmp/upload-dir」に固定定義されます、ソースレベルで修正可能。
+   - ファイルの格納する場所、書き込み権限が必要です
+
 * 使い方
 ** メイン画面
 [[./main.png]]
-   - サービスを起動後、「http://localhost:8080」 からサービスの状態を確認できます。
-   - ネットワークを設定すれば、他のディバイスからアクセスできになります、URLは例えば「http://192.168.1.112:8080/」 になります
+   - サービスを起動後、「http://localhost:8080/gs-uploading-files-0.1.0/」 からサービスの状態を確認できます。
+   - ネットワークを設定すれば、他のディバイスからアクセスできになります、URLは例えば「http://192.168.1.112:8080/gs-uploading-files-0.1.0/」 になります
    - メイン画面を開く、アップロードされたファイル一覧と、本URLのQRCodeが表示されます。
    - iOSアプリのスキャン機能を使って、このQRCodeをスキャンしたら、サーバーのURLを読み込め、そうしたら、アプリとサーバーの通信ができになります。
 
 ** アップロード
 iOSアプリを使って、アップロードできますし、コマンドラインからファイルをアップロードできます。
 #+BEGIN_SRC sh
-curl -i -X POST -H "Accept: application/json" -F "file=@/private/tmp/HCHeartRate.zip" http://192.168.1.112:8080/
+curl -i -X POST -H "Accept: application/json" -F "file=@/private/tmp/HCHeartRate.zip" http://192.168.1.112:8080/gs-uploading-files-0.1.0/
 #+END_SRC
