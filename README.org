@@ -21,8 +21,9 @@ mvn clean war:war
 cp target/gs-uploading-files-0.1.0.war TOMCAT_HOME/webapps/
 #+END_SRC
  warも生成できるので、tomcatのwebappsにコピーすれば、起動できます。
-** 注意点
-   - 「src/main/java/hello/storage/StorageProperties.java」に、ファイルの格納する場所は「/tmp/upload-dir」に固定定義されます、ソースレベルで修正可能。
+** 格納パスについて
+   - warファイルの「/WEB-INF/classes/application.properties」に、ファイルの格納する場所は「/tmp/upload-dir」に定義されます。
+   - 別のパスに指定したいなら、TOMCATHOME/webapps/gs-uploading-files-0.1.0/WEB-INF/classes/application.propertiesの内容を修正して、アプリをreloadすれば、自動的にパスも作成できます。
    - ファイルの格納する場所、書き込み権限が必要です
 
 * 使い方
